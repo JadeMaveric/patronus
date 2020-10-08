@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Patronus",
-    "version": "0.1",
+    "version": "0.5",
 
     "description": "Listens to your google meet and notifies you if a predefined keyword is spoken",
     "homepage_url": "https://github.com/JadeMaveric/Patronus",
@@ -11,14 +11,24 @@
         "96": "icons/deer-96.png"
     },
 
+    "permissions": [
+        "activeTab"
+    ],
+
     "browser_action": {
         "default_icon": "icons/deer-32.png",
         "default_title": "Patronus",
         "default_popup": "popup/settings.html"
     },
 
-    "content_scripts": {
-        "matches": ["*://meet.google.com/*"],
-        "js": ["patronus.js"]
-    }
+    "content_scripts": [
+        {
+            "matches": ["*://meet.google.com/*"],
+            "js": ["content_scripts/expecto.js"]
+        }
+    ],
+
+    "web_accessible_resources": [
+        "icons/deer-96.png"
+    ]
 }

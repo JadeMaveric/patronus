@@ -1,0 +1,10 @@
+html, body {
+    width: 100px;
+}
+.reset {
+    background-color: #FBFBC9;
+}
+
+.reset:hover {
+    background-color: #EAEA9D;
+}
