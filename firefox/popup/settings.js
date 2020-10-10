@@ -18,7 +18,7 @@
             let keywords = getKeywords();
             console.log(`Sending properties: ${interval} ${keywords}`)
             browser.tabs.sendMessage(tabs[0].id, {
-                command: "properties",
+                command: "setProperties",
                 interval: interval,
                 keywords: keywords
             })
@@ -63,7 +63,21 @@
         tab = tabs[0];
         if (tab.url.match('meet.google.com') == null) {
             console.log("Wrong tab")
-            document.querySelector('#wrongtab').classList.remove('hidden')
+            document.querySelector('#popup-content').classList.add('hidden')
+            document.querySelector('#error-content').classList.remove('hidden')
+        } else {
+            browser.tabs.sendMessage(tab.id, {
+                command: "getProperties"
+            })
+        }
+    })
+
+    browser.runtime.onMessage.addListener((message) => {
+        if (message.command = "setProperties") {
+            console.log("Received properties")
+            document.getElementById('keywords').value = message.keywords;
+            document.getElementById('interval').value = message.interval;
+            document.getElementById('toggle_switch').checked = message.activated;
         }
     })
 })();

@@ -3,6 +3,11 @@ html, body {
     color: #FFEEEE;
 }
 
+#error-content {
+    width: 200px;
+    text-align: center;
+}
+
 .title {
     font-weight: bold;
     font-size: x-large;

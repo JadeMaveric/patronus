@@ -74,7 +74,7 @@
     // itervalId = setInterval(analyseVoice, interval)
 
     browser.runtime.onMessage.addListener((message) => {
-        if( message.command === "properties" ) {
+        if( message.command === "setProperties" ) {
             keywords = [];
             interval = message.interval;
             for( word of message.keywords ) {
@@ -83,9 +83,18 @@
 
             notify(`I'll check every <i>${interval}</i>ms and notify you if any of the following keywords are mentioned: <i>${keywords}</i>`)
         }
+        else if( message.command === "getProperties" ) {
+            browser.runtime.sendMessage({
+                command: "setProperites",
+                activated: intervalId!=null,
+                keywords: keywords,
+                interval: interval
+            })
+        }
         else if( message.command === "toggle" ) {
             if (intervalId) {
                 clearInterval(intervalId)
+                intervalId = null
                 notify("I'll stop notifying you now")
             }
             else {

@@ -10,7 +10,7 @@
         <div id="titlebar">
             <span class="title">Patronus</span>
             <label class="switch">
-                <input type="checkbox" onclick="handleToggle">
+                <input id="toggle_switch" type="checkbox" onclick="handleToggle">
                 <span class="slider round"></span>
             </label>
         </div>
@@ -25,13 +25,11 @@
                 <input type="number" name="interval" id="interval" value="5000">
             </label>
             <button type="button" apply" id="apply" class="apply" onclick="handleApply()">Apply</button>
-            <span class="notice hidden" id="wrongtab">only works in a gMeet tab</span>
         </form>
-
     </div>
     <div id="error-content" class="hidden">
-        <p>Can't analyse this page</p>
-        <p>Try a different page</p>
+        <img src="../icons/deer-96.png">
+        <p>Patronus will only work on meet.google.com</p>
     </div>
     <script src="settings.js"></script>
 </body>
