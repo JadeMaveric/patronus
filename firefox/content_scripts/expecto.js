@@ -63,7 +63,7 @@
         subClassName = "CNusmb";
         for( sub of document.getElementsByClassName(subClassName) ) {
             for( word of sub.innerHTML.split(' ') ) {
-                if( keywords.includes(word.toLowerCase()) ){
+                if( keywords.includes(word.replace(/[^\w\s]|_/g,"").trim().toLowerCase()) ){
                     notify(word);
                 }
             }
