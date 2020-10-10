@@ -1,7 +1,7 @@
 (function listenForClicks() {
-    document.addEventListener("click", (e) => {
+    document.addEventListener('click', e => {
         console.log("I got a click!");
-
+        
         function getKeywords() {
             let words = document.getElementById("keywords").value.split(/[\s,]+/);
             words = words.map(e => e.trim().toLowerCase());
@@ -13,35 +13,21 @@
             return interval;
         }
 
-        function sendKeywords(tabs) {
-            let words = getKeywords();
-            console.log(`Sending keywords: ${words}`)
-            browser.tabs.sendMessage(tabs[0].id, {
-                command: "keywords",
-                keywords: words
-            })
-        }
-
-        function sendInterval(tabs) {
+        function sendProperties(tabs) {
             let interval = getInterval();
-            console.log(`Sending interval: ${interval}`)
+            let keywords = getKeywords();
+            console.log(`Sending properties: ${interval} ${keywords}`)
             browser.tabs.sendMessage(tabs[0].id, {
-                command: "interval",
-                interval: interval
+                command: "properties",
+                interval: interval,
+                keywords: keywords
             })
         }
 
-        function expectoPatronum(tabs) {
-            console.log("Expecto Patronum!")
+        function togglePatronus(tabs) {
+            console.log("Switching Patronus state...")
             browser.tabs.sendMessage(tabs[0].id, {
-                command: "start"
-            })
-        }
-
-        function recallPatronus(tabs) {
-            console.log("Recalling Patronus...")
-            browser.tabs.sendMessage(tabs[0].id, {
-                command: "stop"
+                command: "toggle"
             })
         }
 
@@ -52,25 +38,32 @@
 
         // Get the active tab
         // Call the relevant function
-        if (e.target.classList.contains("keywords")) {
+        if (e.target.classList.contains("apply")) {
+            console.log("Apply button hit")
             browser.tabs.query({active: true, currentWindow: true})
-            .then(sendKeywords)
+            .then(sendProperties)
             .catch(reportError)
         }
-        else if (e.target.classList.contains("interval")) {
+
+        else if (e.target.classList.contains("slider")) {
+            console.log("Toggle button hit")
             browser.tabs.query({active: true, currentWindow: true})
-            .then(sendInterval)
+            .then(togglePatronus)
             .catch(reportError)
         }
-        else if (e.target.classList.contains("set")) {
-            browser.tabs.query({active: true, currentWindow: true})
-            .then(expectoPatronum)
-            .catch(reportError)
+
+        else {
+            console.log(e.target.classList)
         }
-        else if (e.target.classList.contains("reset")) {
-            browser.tabs.query({active: true, currentWindow: true})
-            .then(recallPatronus)
-            .catch(reportError)
+    });
+
+    // Show the warning message if we're not on the right tab
+    browser.tabs.query({active: true, currentWindow: true})
+    .then( (tabs) => {
+        tab = tabs[0];
+        if (tab.url.match('meet.google.com') == null) {
+            console.log("Wrong tab")
+            document.querySelector('#wrongtab').classList.remove('hidden')
         }
     })
 })();

@@ -7,16 +7,27 @@
 </head>
 <body>
     <div id="popup-content">
-        <label>Keywords</label>
-        <textarea type="text" name="keywords" id="keywords"></textarea>
-        <button class="button keywords">set</button>
+        <div id="titlebar">
+            <span class="title">Patronus</span>
+            <label class="switch">
+                <input type="checkbox" onclick="handleToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        
+        <form>
+            <label for="keywords">
+                Keywords
+                <textarea name="keywords" id="keywords" cols="27" rows="4">Enter some space separated or,comma,separated,keywords,here and, you, will, be, notified, when, they're mentioned</textarea>
+            </label>
+            <label for="interval">
+                Interval
+                <input type="number" name="interval" id="interval" value="5000">
+            </label>
+            <button type="button" apply" id="apply" class="apply" onclick="handleApply()">Apply</button>
+            <span class="notice hidden" id="wrongtab">only works in a gMeet tab</span>
+        </form>
 
-        <label>Interval</label>
-        <input type="number" name="interval" id="interval" min="1000" max="10000" value="3000">
-        <button class="button interval">set</button>
-
-        <button class="button set">start</button>
-        <button class="button reset">stop</button>
     </div>
     <div id="error-content" class="hidden">
         <p>Can't analyse this page</p>

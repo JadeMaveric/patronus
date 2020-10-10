@@ -74,32 +74,24 @@
     // itervalId = setInterval(analyseVoice, interval)
 
     browser.runtime.onMessage.addListener((message) => {
-        if( message.command === "keywords" ) {
+        if( message.command === "properties" ) {
             keywords = [];
+            interval = message.interval;
             for( word of message.keywords ) {
                 keywords.push(word)
             }
-            if( keywords.length >0 ) {
-                notify("I will notify you if any of the following are said: " + String(keywords))
-            } else {
-                notify("You didn't give me any keywords. I won't be notifying you")
+
+            notify(`I'll check every <i>${interval}</i>ms and notify you if any of the following keywords are mentioned: <i>${keywords}</i>`)
+        }
+        else if( message.command === "toggle" ) {
+            if (intervalId) {
+                clearInterval(intervalId)
+                notify("I'll stop notifying you now")
             }
-        }
-        else if( message.command === "interval" ) {
-            interval = message.interval
-            notify("I will check for keywords every " + interval + "ms")
-        }
-        else if( message.command === "stop" ) {
-            if (intervalId != null)
-                clearInterval(intervalId)
-            notify("I will stop notifying you now. I hope I served you well")
-        }
-        else if( message.command === "start" ) {
-            if (intervalId != null)
-                clearInterval(intervalId)
-            intervalId = setInterval(analyseVoice, interval);
-            iconURL = message.iconURL;
-            notify("Expecto Patronum")
+            else {
+                intervalId = setInterval(analyseVoice, interval);
+                notify("I'll keep watch for the keywords and notify you if any of the are mentioned")
+            }
         }
     })
 })();
