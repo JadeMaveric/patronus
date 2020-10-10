@@ -1,98 +1,136 @@
-html, body {
-    background-color: #1E1F54;
-    color: #FFEEEE;
+html,
+body {
+  background-color: #1e1f54;
+  color: #ffeeee;
 }
 
 #error-content {
-    width: 200px;
-    text-align: center;
+  width: 200px;
+  text-align: center;
 }
 
 .title {
-    font-weight: bold;
-    font-size: x-large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    text-decoration: underline;
-    color: #DEDFEB;
+  font-weight: bold;
+  font-size: x-large;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-decoration: underline;
+  color: #dedfeb;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .notice {
-    font-size: x-small;
-    color: #F9402D;
+  font-size: x-small;
+  color: #f9402d;
 }
 
 #keywords {
-    border-radius: 10px;
-    display: block;
+  border-radius: 10px;
+  display: block;
 }
 
 #interval {
-    display: block;
+  display: block;
 }
 
 #apply {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
+/* SWITCH */
 /*Switch - box around the slider*/
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-    transform: translate(23px, -10px);
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  transform: translate(23px, -10px);
 }
 /*Switch - hide default HTML checkbox*/
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 /*Switch - the slider*/
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: #CCCCCC;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #cccccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 /*Switch - slider animation*/
-.slider:before{
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: #F9F4F4;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #f9f4f4;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 input:checked + .slider {
-    background-color: #249ADC;
+  background-color: #249adc;
 }
 input:focus + .slider {
-    box-shadow: 0 0 1px #249ADC;
+  box-shadow: 0 0 1px #249adc;
 }
-input:checked + .slider:before{
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 /*Switch - rounded slider*/
 .slider.round {
-    border-radius: 34px;
+  border-radius: 34px;
 }
 .slider.round::before {
-    border-radius: 50%;
+  border-radius: 50%;
+}
+
+
+/* TOOLTIP */
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }

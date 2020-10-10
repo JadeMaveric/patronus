@@ -16,14 +16,16 @@
         </div>
         
         <form>
-            <label for="keywords">
+            <label for="keywords" class=tooltip>
                 Keywords
-                <textarea name="keywords" id="keywords" cols="27" rows="4">Enter some space separated or,comma,separated,keywords,here and, you, will, be, notified, when, they're mentioned</textarea>
+                <!-- <span class="tooltiptext">Enter some space separated or,comma,separated,keywords,here and, you, will, be, notified, when, they're mentioned</span> -->
             </label>
-            <label for="interval">
+            <textarea name="keywords" id="keywords" cols="27" rows="4"></textarea>
+            <label for="interval" class=tooltip>
                 Interval
-                <input type="number" name="interval" id="interval" value="5000">
+                <!-- <span class="tooltiptext">Enter the interval (in milliseconds) for how often the keywords should be checked</span> -->
             </label>
+            <input type="number" name="interval" id="interval" value="5000">
             <button type="button" apply" id="apply" class="apply" onclick="handleApply()">Apply</button>
         </form>
     </div>
