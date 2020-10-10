@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Patronus",
-    "version": "0.5",
+    "version": "0.9",
 
     "description": "Listens to your google meet and notifies you if a predefined keyword is spoken",
     "homepage_url": "https://github.com/JadeMaveric/Patronus",
