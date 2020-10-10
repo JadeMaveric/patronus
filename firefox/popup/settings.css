@@ -16,6 +16,12 @@ html, body {
     color: #DEDFEB;
 }
 
+.warning {
+  text-align: center;
+  color: white;
+  background: #F9402D;
+}
+
 .hidden {
     display: none;
 }

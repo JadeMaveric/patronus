@@ -72,12 +72,18 @@
         }
     })
 
+
+    // Get content-script state
     browser.runtime.onMessage.addListener((message) => {
         if (message.command = "setProperties") {
             console.log("Received properties")
             document.getElementById('keywords').value = message.keywords;
             document.getElementById('interval').value = message.interval;
             document.getElementById('toggle_switch').checked = message.activated;
+            if (message.subtitleState)
+                document.getElementById('subtitle-warning').classList.add('hidden');
+            else
+                document.getElementById('subtitle-warning').classList.remove('hidden');
         }
     })
 })();

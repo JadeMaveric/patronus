@@ -70,6 +70,11 @@
         }
     }
 
+    function subtitleState() {
+        ccButtonText = document.getElementsByClassName('I98jWb')[0].innerText;
+        return ccButtonText === "Turn off captions";
+    }
+
     // notify("I'll notify you now")
     // itervalId = setInterval(analyseVoice, interval)
 
@@ -89,7 +94,8 @@
                 command: "setProperites",
                 activated: intervalId!=null,
                 keywords: keywords,
-                interval: interval
+                interval: interval,
+                subtitleState: subtitleState()
             })
         }
         else if( message.command === "toggle" ) {
