@@ -80,8 +80,9 @@
             for( word of message.keywords ) {
                 keywords.push(word)
             }
-
-            notify(`I'll check every <i>${interval}</i>ms and notify you if any of the following keywords are mentioned: <i>${keywords}</i>`)
+            let messageBody = intervalId==null?'When actived, ':'';
+            messageBody += `I'll check for the following keywords every <i>${interval}</i>ms: <i>${keywords}</i>`
+            notify(messageBody)
         }
         else if( message.command === "getProperties" ) {
             browser.runtime.sendMessage({
@@ -99,7 +100,7 @@
             }
             else {
                 intervalId = setInterval(analyseVoice, interval);
-                notify("I'll keep watch for the keywords and notify you if any of the are mentioned")
+                notify("I'll start notifying you now")
             }
         }
     })
