@@ -2,12 +2,6 @@
 # patronus
 A browser extension that listens to your gMeets for you. And notifies you if something important is mentioned
 
-
-## Known bugs
-* The browser bar UI doesn't update itself with the current state of the backend script. 
-It keeps resetting everytime it's closed. This is merely a UI bug. The bckground script that listens
-and notifies works as expected. This will be fixed in the 1.0 release.
-
 ---
 MIT License
 
