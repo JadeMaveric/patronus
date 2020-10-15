@@ -19,6 +19,12 @@
         }
 
         function sendProperties(tabs) {
+
+            // if tabs is undefined, report error
+            if (!tabs) {
+                return reportError("tabs undefined")
+           }
+
             let interval = getInterval();
             let keywords = getKeywords();
             console.log(`Sending properties: ${interval} ${keywords}`)
@@ -30,6 +36,12 @@
         }
 
         function togglePatronus(tabs) {
+
+            // if tabs is undefined, report error
+            if (!tabs) {
+                return reportError("tabs undefined")
+            }
+
             console.log("Switching Patronus state...")
             browser.tabs.sendMessage(tabs[0].id, {
                 command: "toggle"
@@ -60,11 +72,6 @@
 
     // Show the warning message if we're not on the right tab
     browser.tabs.query({active: true, currentWindow: true}, (tabs) => {
-
-        // if tabs is undefined, report error
-        if (!tabs) {
-            return reportError("tabs undefined")
-        }
 
         tab = tabs[0];
         if (tab.url.match('meet.google.com') == null) {
