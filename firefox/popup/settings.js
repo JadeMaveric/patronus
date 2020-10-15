@@ -1,13 +1,18 @@
 (function listenForClicks() {
+
+    // browser namespace depending on browser
+    // chrome for Chrome OR browser for Firefox
+    browser = (function() { return  chrome || browser; })();
+
     document.addEventListener('click', e => {
         console.log("I got a click!");
-        
+
         function getKeywords() {
             let words = document.getElementById("keywords").value.split(/[\s,]+/);
             words = words.map(e => e.trim().toLowerCase());
             return words;
         }
-        
+
         function getInterval() {
             let interval = document.getElementById("interval").value;
             return interval;
@@ -40,16 +45,12 @@
         // Call the relevant function
         if (e.target.classList.contains("apply")) {
             console.log("Apply button hit")
-            browser.tabs.query({active: true, currentWindow: true})
-            .then(sendProperties)
-            .catch(reportError)
+            browser.tabs.query({active: true, currentWindow: true}, sendProperties)
         }
 
         else if (e.target.classList.contains("slider")) {
             console.log("Toggle button hit")
-            browser.tabs.query({active: true, currentWindow: true})
-            .then(togglePatronus)
-            .catch(reportError)
+            browser.tabs.query({active: true, currentWindow: true}, togglePatronus)
         }
 
         else {
@@ -58,8 +59,13 @@
     });
 
     // Show the warning message if we're not on the right tab
-    browser.tabs.query({active: true, currentWindow: true})
-    .then( (tabs) => {
+    browser.tabs.query({active: true, currentWindow: true}, (tabs) => {
+
+        // if tabs is undefined, report error
+        if (!tabs) {
+            return reportError("tabs undefined")
+        }
+
         tab = tabs[0];
         if (tab.url.match('meet.google.com') == null) {
             console.log("Wrong tab")
