@@ -14,6 +14,10 @@
     }
     window.hasRun = true;
 
+    // browser namespace depending on browser
+    // chrome for Chrome OR browser for Firefox
+    browser = (function() { return chrome || browser; })();
+
     /**
      * This will be populated with data received from the popup
      */
