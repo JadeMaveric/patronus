@@ -1,6 +1,6 @@
 /** 
  * @author Julius Alphonso
- * This script is based off poc/script.js
+ * This script is based off poc/subcapture.js
  * It communicates with the UI in firefox/popup to get the keywords
 */
 
