@@ -14,7 +14,7 @@
                 <span class="slider round"></span>
             </label>
         </div>
-        
+
         <form>
             <label for="keywords" title="Keywords are the words that should be searched for.">
                 Keywords
@@ -24,12 +24,26 @@
                 Interval
                 <input type="number" name="interval" id="interval" value="5000">
             </label>
-            <button type="button" apply" id="apply" class="apply">Apply</button>
+            <button type="button apply" id="apply" class="apply">Apply</button>
+        </form>
+        
+        <hr/>
+
+        <span class="title">Slideshot</span><br>
+        <form>
+            <label for="sensitivity">
+                sensitivity
+                <br>
+                <input type="number" min="500" max="10000" value="1000" id="sensitivity" name="sensitivity">
+            </label><br><br>
+            <button id="toggle_timer">Start/Stop</button>
+            <button id="download_zip">Download Zip</button>
         </form>
     </div>
+
     <div id="error-content" class="hidden">
         <img src="../icons/deer-96.png">
-        <p>Patronus will only work on meet.google.com</p>
+        <p>Patronus will only work inside a meet on <a href="https://meet.google.com/">meet.google.com</a></p>
     </div>
     <div id="subtitle-warning" class="warning hidden">
         Subtitles are disabled!

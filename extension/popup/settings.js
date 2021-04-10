@@ -5,7 +5,6 @@
     browser = (function() { return  chrome || browser; })();
 
     document.addEventListener('click', e => {
-        console.log("I got a click!");
 
         function getKeywords() {
             let words = document.getElementById("keywords").value.split(/[\s,]+/);
@@ -36,15 +35,38 @@
         }
 
         function togglePatronus(tabs) {
-
             // if tabs is undefined, report error
             if (!tabs) {
-                return reportError("tabs undefined")
+                return reportError("InternalError: No tabs defined")
             }
 
             console.log("Switching Patronus state...")
             browser.tabs.sendMessage(tabs[0].id, {
                 command: "toggle"
+            })
+        }
+
+        function toggleSlideshot(tabs) {
+            // if tabs is undefined, report error
+            if (!tabs) {
+                return reportError("InternalError: No tabs defined")
+            }
+
+            console.log("Switching Slideshot state...")
+            browser.tabs.sendMessage(tabs[0].id, {
+                command: "toggleInterval"
+            })
+        }
+
+        function downloadSlides(tabs) {
+            // if tabs is undefined, report error
+            if (!tabs) {
+                return reportError("InternalError: No tabs defined")
+            }
+
+            console.log("Downloading slides...")
+            browser.tabs.sendMessage(tabs[0].id, {
+                command: "downloadZip"
             })
         }
 
@@ -55,26 +77,35 @@
 
         // Get the active tab
         // Call the relevant function
-        if (e.target.classList.contains("apply")) {
-            console.log("Apply button hit")
+        if (e.target.id === "apply") {
+            console.log("Apply button hit!")
             browser.tabs.query({active: true, currentWindow: true}, sendProperties)
         }
 
-        else if (e.target.classList.contains("slider")) {
-            console.log("Toggle button hit")
+        else if (e.target.id === "toggle_switch") {
+            console.log("Toggle button hit!")
             browser.tabs.query({active: true, currentWindow: true}, togglePatronus)
         }
 
-        else {
-            console.log(e.target.classList)
+        else if (e.target.id === "toggle_timer") {
+            console.log("Countdown initiating / stopping")
+            browser.tabs.query({active: true, currentWindow: true}, toggleSlideshot)
         }
+
+        else if (e.target.id === "download_zip") {
+            console.log("Downloading zip")
+            browser.tabs.query({active: true, currentWindow: true}, downloadSlides)
+        }
+
+        console.log(e.target)
     });
 
     // Show the warning message if we're not on the right tab
     browser.tabs.query({active: true, currentWindow: true}, (tabs) => {
 
         tab = tabs[0];
-        if (tab.url.match('meet.google.com') == null) {
+        console.log(tab.url);
+        if (tab.url.match('meet.google.com/.+') == null) {
             console.log("Wrong tab")
             document.querySelector('#popup-content').classList.add('hidden')
             document.querySelector('#error-content').classList.remove('hidden')
@@ -88,7 +119,7 @@
 
     // Get content-script state
     browser.runtime.onMessage.addListener((message) => {
-        if (message.command = "setProperties") {
+        if (message.command === "setProperties") {
             console.log("Received properties")
             document.getElementById('keywords').value = message.keywords;
             document.getElementById('interval').value = message.interval;

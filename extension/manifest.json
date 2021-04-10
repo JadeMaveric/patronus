@@ -24,9 +24,16 @@
     "content_scripts": [
         {
             "matches": ["*://meet.google.com/*"],
-            "js": ["content_scripts/expecto.js"]
+            "js": [
+                "content_scripts/slideshot/lib/FileSaver.js",
+                "content_scripts/slideshot/lib/jszip.js",
+                "content_scripts/slideshot/lib/pixelmatch.js",
+                "content_scripts/slideshot/capture.js",
+                "content_scripts/expecto.js"
+            ]
         }
     ],
+
 
     "web_accessible_resources": [
         "icons/deer-96.png"

@@ -3,6 +3,10 @@ html, body {
     color: #FFEEEE;
 }
 
+a {
+    color: #FFEEEE;
+}
+
 #error-content {
     width: 200px;
     text-align: center;
