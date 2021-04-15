@@ -87,7 +87,7 @@
             browser.tabs.query({active: true, currentWindow: true}, togglePatronus)
         }
 
-        else if (e.target.id === "toggle_timer") {
+        else if (e.target.id === "slideshot_status") {
             console.log("Countdown initiating / stopping")
             browser.tabs.query({active: true, currentWindow: true}, toggleSlideshot)
         }
@@ -110,6 +110,7 @@
             document.querySelector('#popup-content').classList.add('hidden')
             document.querySelector('#error-content').classList.remove('hidden')
         } else {
+            console.log("Asking for properties")
             browser.tabs.sendMessage(tab.id, {
                 command: "getProperties"
             })
@@ -117,17 +118,22 @@
     })
 
 
-    // Get content-script state
     browser.runtime.onMessage.addListener((message) => {
         if (message.command === "setProperties") {
-            console.log("Received properties")
+            console.log("Received properties", message)
             document.getElementById('keywords').value = message.keywords;
             document.getElementById('interval').value = message.interval;
             document.getElementById('toggle_switch').checked = message.activated;
+            document.getElementById('slideshot_status').checked = message.slideshot;
+            document.getElementById('frame_count').innerText = message.framecount;
             if (message.subtitleState)
                 document.getElementById('subtitle-warning').classList.add('hidden');
             else
                 document.getElementById('subtitle-warning').classList.remove('hidden');
+        }
+
+        else if (message.command === "setFrameCount") {
+            document.getElementById('frame_count').innerText = message.count;
         }
     })
 })();

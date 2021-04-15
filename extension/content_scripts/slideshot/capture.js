@@ -14,10 +14,10 @@
     }
     window.hasSubcapture = true;
 
-    let id = null;
+    window.intervalId = null;
     window.frame = null;
     window.frameHistory = [];
-    window.frameDiffs = [];
+    window.frameDiffs = [0, 0, 0, 0]; //TODO: This need not be 4
     window.senstivity = 1000;
 
     // browser namespace depending on browser
@@ -67,22 +67,21 @@
             if (debug) console.log(diffScore);
             
             if (window.frameDiffs.length >= 3) {
-                window.frameDiffs = window.frameDiffs.slice(1,3);
+                window.frameDiffs = window.frameDiffs.slice(-2);
                 window.frameDiffs.push(diffScore);
                 [a,b,c] = window.frameDiffs;
-                
+
                 if (b>=a && b>c && b!=0) {
                     console.log("Peaked");
                 }
                 else if (b<a && b<=c) {
                     console.log("Switched/Stabilised");
                     window.frameHistory.push(window.frame);
+                    browser.runtime.sendMessage({
+                        command: "setFrameCount",
+                        count: window.frameHistory.length
+                    })
                 }
-            }
-            else {
-                console.log("First frame");
-                window.frameHistory.push(window.frame);
-                window.frameDiffs.push(diffScore);            
             }
             window.frame = currFrame;
         }
@@ -96,44 +95,53 @@
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         const zip = new JSZip();
-    
-        if (frameHistory[0] === null) frameHistory.shift();
+
+        // Remove any null frames
+        while (frameHistory[0] === null) {
+            frameHistory.shift();
+        }
+
         const promises = frameHistory.map( (frame, i) => 
             new Promise( resolve => {
                 canvas.width = frame.width;
                 canvas.height = frame.height;
                 ctx.putImageData(frame, 0, 0);
-                canvas.toBlob(resolve, 'image/jpeg', 0.1);
+                canvas.toBlob(resolve, 'image/jpeg');
             })
         )
-    
+
         Promise.all(promises)
         .then( blobs => {
             blobs.forEach((blob, i) => {
-                zip.file(`Frame ${i}.png`, blob);
+                // console.log("Insert image", blob);
+                zip.file(`Frame ${i}.jpg`, blob, {base64: true});
             });
+            
+            // console.log(zip.files);
 
             zip.generateAsync({type:"blob"})
             .then( blob => {
-                console.log("Saving zip...")
+                // console.log("Saving zip...")
                 saveAs(blob, "gMeetSlides.zip")
-                //location.href="data:application/zip;base64," + blob;
             })
+            .catch( err => console.log(err));
         })
-    
-        console.log("End of zip function, waiting for browser to finish processing")
     }
     
     browser.runtime.onMessage.addListener((message) => {
         if( message.command === "toggleInterval" ) {
-            if ( id ) {
+            if ( window.intervalId ) {
                 console.log("Clear Interval")
-                window.clearInterval(id)
-                id = null;
+                window.clearInterval(window.intervalId)
+                window.intervalId = null;
             } else {
                 console.log("Capturing Frames")
-                id = window.setInterval(captureFrame, 100)
+                window.intervalId = window.setInterval(captureFrame, 100)
             }
+            browser.runtime.sendMessage({
+                command: "setSlideshotStatus",
+                stutus: window.intervalId === null
+            });
         }
 
         if ( message.command === "downloadZip" ) {
@@ -142,6 +150,5 @@
         }
     })
 
-    exportFunction(downloadZip, window, {defineAs:'downloadZip'});
-    exportFunction(captureFrame, window, {defineAs:'captureFrame'});
+    console.log("CaptureShot loaded")
 })();

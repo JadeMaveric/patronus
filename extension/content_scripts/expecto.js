@@ -94,12 +94,17 @@
             notify(messageBody)
         }
         else if( message.command === "getProperties" ) {
+            console.log("Got request for properties")
             browser.runtime.sendMessage({
-                command: "setProperites",
+                command: "setProperties",
                 activated: intervalId!=null,
                 keywords: keywords,
                 interval: interval,
-                subtitleState: subtitleState()
+                subtitleState: subtitleState(),
+                // TODO: There needs to be a helper script to handle these messages
+                // But this should work for now.
+                slideshot: window.intervalId !== null,
+                framecount: window.frameHistory.length,
             })
         }
         else if( message.command === "toggle" ) {
@@ -114,4 +119,6 @@
             }
         }
     })
+
+    console.log("Subcapture loaded")
 })();

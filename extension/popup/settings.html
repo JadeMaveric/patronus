@@ -26,17 +26,27 @@
             </label>
             <button type="button apply" id="apply" class="apply">Apply</button>
         </form>
+        <div id="subtitle-warning" class="warning hidden">
+            Subtitles are disabled!
+        </div>
         
         <hr/>
 
-        <span class="title">Slideshot</span><br>
+        <div id="titlebar">
+            <span class="title" title="Toggle the switch to start/pause recording slide chages. Hit 'download' to get your zip.">Slideshot</span>
+            <label class="switch">
+                <input id="slideshot_status" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
         <form>
-            <label for="sensitivity">
+            <!--<label for="sensitivity">
                 sensitivity
                 <br>
                 <input type="number" min="500" max="10000" value="1000" id="sensitivity" name="sensitivity">
-            </label><br><br>
-            <button id="toggle_timer">Start/Stop</button>
+            </label><br><br>-->
+            <span>Slide Count: </span>
+            <span id="frame_count">0</span><br><br>
             <button id="download_zip">Download Zip</button>
         </form>
     </div>
@@ -44,9 +54,6 @@
     <div id="error-content" class="hidden">
         <img src="../icons/deer-96.png">
         <p>Patronus will only work inside a meet on <a href="https://meet.google.com/">meet.google.com</a></p>
-    </div>
-    <div id="subtitle-warning" class="warning hidden">
-        Subtitles are disabled!
     </div>
     <script src="settings.js"></script>
 </body>
