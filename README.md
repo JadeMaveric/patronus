@@ -7,9 +7,9 @@ A browser extension that listens to your gMeets for you. And notifies you if som
 
 ### Usage
 1. Enable subtitles (CC)
-2. In the browser bar UI - set the keywords and interval
+2. In the plugin UI - set the keywords and interval
     * Keywords are the words that should be searched for. Case and punctuation are ignored when matching keywords.
-    * Interval is how often the search will be run (in milliseconds). I've found that 10 seconds (10000 ms) is reliably well. (A value lower than 5000 leads to the same keywords being detected multiple times, and a value more than 20000 will often miss words)
+    * Interval is how often the search will be run (in milliseconds). I've found that 1 second (1000 ms) is very reliable. Values above 10 seconds will often miss words.
 3. Click the toggle switch to enable Patronus (it won't check for anything unless this is on)
 4. You'll be notified when one of the keywords is found
 ---

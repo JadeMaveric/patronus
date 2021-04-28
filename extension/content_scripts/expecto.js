@@ -22,7 +22,7 @@
      * These will be populated with data received from the popup
      */
     let keywords = [];
-    let interval = 3000;
+    let interval = 1000;
     let iconURL = "";
     let intervalId = null;
 
@@ -133,7 +133,7 @@
             keywords = [];
             interval = message.interval;
             for( word of message.keywords ) {
-                keywords.push(word)
+                keywords.push(word);
             }
             let messageBody = intervalId==null?'When actived, ':'';
             messageBody += `I'll check for the following keywords every <i>${interval}</i>ms: <i>${keywords}</i>`
