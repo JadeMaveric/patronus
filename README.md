@@ -15,7 +15,7 @@ A browser extension that listens to your gMeets for you. And notifies you if som
 ---
 MIT License
 
-Copyright (c) 2020 Julius Alphonso
+Copyright (c) 2021 Julius Alphonso
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
