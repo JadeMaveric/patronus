@@ -3,7 +3,23 @@
 A browser extension that listens to your gMeets for you. And notifies you if something important is mentioned
 
 ### Installation
-* Firefox - get it from the [addon store](https://addons.mozilla.org/en-US/firefox/addon/patronus-for-gmeet/)
+* Addon Stores:
+    * [Firefox](https://addons.mozilla.org/en-US/firefox/addon/patronus-for-gmeet/)
+    * Chrome (coming soon)
+* Manual Installation
+    * Download the latest zip from the [releases](https://github.com/JadeMaveric/patronus/releases) page
+    * Unpack the zipped file
+    * For chrome:
+        * Go to [extensions](chrome://extensions/) pages
+        * Select 'Load unpacked'
+        * Select the folder that was unzipped. It should contain a manifest.json
+    * For firefox (only for debugging):
+        * Go to the [debugging](about:debugging#/runtime/this-firefox) page
+        * Select 'Load temporary Add-on'
+        * Select the `manifest.json` file in the unzipped folder
+    * You're all set, Patronus is installed. Head over to [Usage](#usage)
+
+
 
 ### Usage
 1. Enable subtitles (CC)
