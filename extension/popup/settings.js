@@ -5,10 +5,10 @@
     browser = (function() { return  chrome || browser; })();
 
     document.addEventListener('click', e => {
-        console.log("I got a click!");
+        // console.log("I got a click!");
 
         function getKeywords() {
-            let words = document.getElementById("keywords").value.split(/[\s,]+/);
+            let words = document.getElementById("keywords").value.split(/,+/);
             words = words.map(e => e.trim().toLowerCase());
             return words;
         }

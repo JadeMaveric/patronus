@@ -21,7 +21,7 @@
     /**
      * This will be populated with data received from the popup
      */
-    let keywords = [];
+    let keywords = ["comma", "separated", "list", "of", "keywords"];
     let interval = 3000;
     let iconURL = "";
     let intervalId = null;
