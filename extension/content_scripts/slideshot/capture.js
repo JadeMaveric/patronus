@@ -152,5 +152,11 @@
         }
     })
 
+    window.addEventListener('beforeunload', (event) => {
+        event.preventDefault();
+        downloadZip();
+        return event.returnValue = 'Are you sure you want to exit?';
+    }, {capture: true});
+
     console.log("CaptureShot loaded")
 })();
