@@ -122,7 +122,9 @@
             zip.generateAsync({type:"blob"})
             .then( blob => {
                 // console.log("Saving zip...")
-                saveAs(blob, "gMeetSlides.zip")
+                const date = new Date()
+                const zipName = `${date.toDateString()} ${date.toLocaleTimeString()}.zip`
+                saveAs(blob, zipName)
             })
             .catch( err => console.log(err));
         })
